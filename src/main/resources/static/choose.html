@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kronos — Choose Role</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0E0C1A;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    h1, h2, h3, button, .logo { font-family: 'Syne', sans-serif; }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #7C6FFF;
+      margin-bottom: 36px;
+    }
+
+    h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; text-align: center; }
+    .sub { font-size: 14px; color: #A09DC0; margin-bottom: 32px; text-align: center; }
+
+    .cards {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .card {
+      background: #1E1B30;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 32px 28px;
+      width: 220px;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+      text-align: center;
+    }
+    .card:hover { border-color: #7C6FFF; transform: translateY(-3px); }
+    .card-icon {
+      font-size: 32px;
+      margin-bottom: 14px;
+    }
+    .card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .card p { font-size: 13px; color: #A09DC0; line-height: 1.5; }
+
+    .back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #A09DC0;
+      font-size: 13px;
+      cursor: pointer;
+      margin-bottom: 28px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back:hover { color: #fff; }
+  </style>
+</head>
+<body>
+
+<div class="logo">
+  <svg width="28" height="28" viewBox="0 0 36 36">
+    <defs><linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C6FFF"/>
+      <stop offset="100%" stop-color="#FF6B8A"/>
+    </linearGradient></defs>
+    <circle cx="18" cy="18" r="17" fill="url(#lg)"/>
+    <circle cx="18" cy="18" r="2" fill="white"/>
+    <line x1="18" y1="16" x2="18" y2="10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    <line x1="18" y1="18" x2="23" y2="14" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+  Kronos
+</div>
+
+<a href="/" class="back">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <polyline points="15 18 9 12 15 6"/>
+  </svg>
+  Back
+</a>
+
+<h2>Who are you?</h2>
+<p class="sub">Choose your role to continue</p>
+
+<div class="cards">
+  <div class="card" onclick="window.location.href='/login.html'">
+    <div class="card-icon">👤</div>
+    <h3>User</h3>
+    <p>Sign up or log in to manage your daily schedule</p>
+  </div>
+  <div class="card" onclick="window.location.href='/admin-login.html'">
+    <div class="card-icon">🛡️</div>
+    <h3>Admin</h3>
+    <p>Log in to the admin panel to manage users</p>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kronos — Admin Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0E0C1A;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    h1, h2, button, .logo { font-family: 'Syne', sans-serif; }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #7C6FFF;
+      margin-bottom: 36px;
+    }
+
+    .box {
+      background: #1E1B30;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 36px;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    .sub { font-size: 13px; color: #A09DC0; margin-bottom: 22px; }
+
+    .warn {
+      background: rgba(255,92,122,0.08);
+      border: 1px solid rgba(255,92,122,0.2);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #FF9BAD;
+      margin-bottom: 20px;
+    }
+
+    .form-group { margin-bottom: 16px; }
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #A09DC0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 7px;
+    }
+    input {
+      width: 100%;
+      background: #161428;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 11px 14px;
+      color: #fff;
+      font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus { border-color: #7C6FFF; }
+    input::placeholder { color: #5C5A78; }
+
+    .err {
+      color: #FF5C7A;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+    .err.show { display: block; }
+
+    .btn-submit {
+      width: 100%;
+      background: #7C6FFF;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Syne', sans-serif;
+      transition: background 0.2s;
+      margin-top: 4px;
+    }
+    .btn-submit:hover { background: #5A4FD4; }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #A09DC0;
+      font-size: 13px;
+      cursor: pointer;
+      margin-bottom: 28px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back:hover { color: #fff; }
+
+    #toast {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      background: #1E1B30;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 14px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: all 0.3s;
+      pointer-events: none;
+      z-index: 999;
+    }
+    #toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<div class="logo">
+  <svg width="28" height="28" viewBox="0 0 36 36">
+    <defs><linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C6FFF"/>
+      <stop offset="100%" stop-color="#FF6B8A"/>
+    </linearGradient></defs>
+    <circle cx="18" cy="18" r="17" fill="url(#lg)"/>
+    <circle cx="18" cy="18" r="2" fill="white"/>
+    <line x1="18" y1="16" x2="18" y2="10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    <line x1="18" y1="18" x2="23" y2="14" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+  Kronos Admin
+</div>
+
+<a href="/" class="back">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <polyline points="15 18 9 12 15 6"/>
+  </svg>
+  Back
+</a>
+
+<div class="box">
+  <h2>Admin Login</h2>
+  <p class="sub">Restricted access — administrators only</p>
+
+  <div class="warn">⚠ This area is for authorized administrators only</div>
+
+  <div class="form-group">
+    <label>Username</label>
+    <input id="username" type="text" placeholder="admin" autocomplete="username">
+    <div class="err" id="u-err"></div>
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input id="password" type="password" placeholder="••••••••" autocomplete="current-password">
+    <div class="err" id="p-err"></div>
+  </div>
+  <div class="err" id="general-err"></div>
+  <button class="btn-submit" id="login-btn" onclick="handleAdminLogin()">Login</button>
+</div>
+
+<div id="toast"></div>
+
+<script src="/js/auth.js"></script>
+<script>
+  if (getToken() && getRole() === 'ADMIN') window.location.href = '/admin.html';
+
+  function showErr(id, msg) {
+    const el = document.getElementById(id);
+    if (el) { el.textContent = msg; el.classList.add('show'); el.style.display = 'block'; }
+  }
+  function clearErrs() {
+    document.querySelectorAll('.err').forEach(e => { e.style.display='none'; e.textContent=''; });
+  }
+
+  async function handleAdminLogin() {
+    clearErrs();
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
+    if (!username) { showErr('u-err', 'Username is required'); return; }
+    if (!password) { showErr('p-err', 'Password is required'); return; }
+    const btn = document.getElementById('login-btn');
+    btn.disabled = true; btn.textContent = 'Logging in...';
+    try {
+      await doAdminLogin(username, password);
+    } catch(e) {
+      showErr('general-err', e.message || 'Invalid credentials');
+      btn.disabled = false; btn.textContent = 'Login';
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter') handleAdminLogin();
+  });
+</script>
+</body>
+</html>
